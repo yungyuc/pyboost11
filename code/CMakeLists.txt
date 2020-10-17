@@ -6,13 +6,15 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/")
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(BPYVER "python${Python_VERSION_MAJOR}${Python_VERSION_MINOR}")
+
 set(PYBOOST11_CXX_FLAGS
   "-g -Werror -Wall -Wextra -Wno-unused-value -Wno-noexcept-type")
 set(CMAKE_CXX_FLAGS "${PYBOOST11_CXX_FLAGS} ${CMAKE_CXX_FLAGS}")
 
 find_package(pybind11 REQUIRED)
 find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
-find_package(Boost COMPONENTS python REQUIRED)
+find_package(Boost COMPONENTS ${BPYVER} REQUIRED)
 
 ################################################################################
 # pybind11 "modpyb"

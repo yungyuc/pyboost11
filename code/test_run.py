@@ -11,24 +11,32 @@ class ItemTest(unittest.TestCase):
         self.ipyb = modpyb.ItemPyb()
         self.ibpy = modbpy.ItemBpy()
 
-    def test_pyb_take_pyb(self):
+    def test_pyb_set_pyb(self):
 
-        self.ipyb.take_pyb(self.ipyb)
+        self.ipyb.set_pyb(self.ipyb)
 
-    def test_pyb_take_bpy(self):
+    def test_pyb_set_bpy(self):
+
+        self.ipyb.set_bpy(self.ibpy)
+
+    def test_pyb_get_pyb(self):
+
+        self.ipyb.set_pyb(self.ipyb)
+        self.assertIsInstance(self.ipyb.get_pyb(), modpyb.ItemPyb)
+
+    def test_pyb_get_bpy(self):
+
+        self.ipyb.set_bpy(self.ibpy)
+        self.assertIsInstance(self.ipyb.get_bpy(), modbpy.ItemBpy)
+
+    def test_bpy_set_pyb(self):
 
         # FIXME: resolve this from-python conversion issue!
         with self.assertRaises(TypeError):
-            self.ipyb.take_bpy(self.ibpy)
+            self.ibpy.set_pyb(self.ipyb)
 
-    def test_bpy_take_pyb(self):
+    def test_bpy_set_bpy(self):
 
-        # FIXME: resolve this from-python conversion issue!
-        with self.assertRaises(TypeError):
-            self.ibpy.take_pyb(self.ipyb)
-
-    def test_bpy_take_bpy(self):
-
-        self.ibpy.take_bpy(self.ibpy)
+        self.ibpy.set_bpy(self.ibpy)
 
 # vim: set fenc=utf8 ff=unix et sw=4 ts=4 sts=4:

@@ -22,8 +22,10 @@ include_directories(${pybind11_INCLUDE_DIRS})
 
 pybind11_add_module(
     modpyb
+    MODULE
     modpyb.cpp
 )
+target_link_libraries(modpyb PRIVATE pybind11::module ${Boost_LIBRARIES})
 set_target_properties(modpyb PROPERTIES CXX_VISIBILITY_PRESET "default")
 
 add_custom_target(modpyb_copy

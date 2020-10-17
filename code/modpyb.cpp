@@ -1,6 +1,25 @@
-#include <pybind11/pybind11.h>
+#include "pyboost11.hpp"
 
 #include "item.hpp"
+
+namespace pybind11 { namespace detail {
+
+template <> struct type_caster<ItemBpy> : pyboost11_type_caster<ItemBpy>
+{
+public:
+    PYBIND11_TYPE_CASTER(ItemBpy, _("ItemBpy"));
+    bool load(handle src, bool)
+    {
+        value = from_python(src);
+        return true;
+    }
+    static handle cast(ItemBpy src, return_value_policy /* policy */, handle /* parent */)
+    {
+        return to_python(src);
+    }
+};
+
+}} // end namespace pybind11::detail
 
 PYBIND11_MODULE(modpyb, mod)
 {
@@ -10,8 +29,10 @@ PYBIND11_MODULE(modpyb, mod)
 
     pyb::class_<ItemPyb>(mod, "ItemPyb")
         .def(pyb::init<>())
-        .def("take_pyb", &ItemPyb::take_pyb)
-        .def("take_bpy", &ItemPyb::take_bpy)
+        .def("set_pyb", &ItemPyb::set_pyb)
+        .def("set_bpy", &ItemPyb::set_bpy)
+        .def("get_pyb", &ItemPyb::get_pyb)
+        .def("get_bpy", &ItemPyb::get_bpy)
     ;
 }
 

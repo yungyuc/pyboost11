@@ -3,16 +3,18 @@ VERBOSE ?=
 
 pyextsuffix := $(shell python3-config --extension-suffix)
 
+HEADERS := item.hpp pyboost11.hpp
+
 .PHONY: default
 default: modpyb$(pyextsuffix) modbpy$(pyextsuffix)
 
-modpyb$(pyextsuffix): modpyb.cpp item.hpp CMakeLists.txt
+modpyb$(pyextsuffix): modpyb.cpp $(HEADERS) CMakeLists.txt
 	mkdir -p build ; \
 	cd build ; \
 	cmake .. -DCMAKE_BUILD_TYPE=Release
 	env VERBOSE=$(VERBOSE) make -C build modpyb_copy
 
-modbpy$(pyextsuffix): modbpy.cpp item.hpp CMakeLists.txt
+modbpy$(pyextsuffix): modbpy.cpp $(HEADERS) CMakeLists.txt
 	mkdir -p build ; \
 	cd build ; \
 	cmake .. -DCMAKE_BUILD_TYPE=Release

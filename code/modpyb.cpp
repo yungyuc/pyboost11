@@ -2,42 +2,22 @@
 
 #include "item.hpp"
 
-namespace pybind11 { namespace detail {
-
-template <> struct type_caster<ItemBpy> : pyboost11::type_caster<ItemBpy>
+namespace pybind11
 {
-public:
-    PYBIND11_TYPE_CASTER(ItemBpy, _("ItemBpy"));
-    bool load(handle src, bool)
-    {
-        value = from_python(src);
-        return true;
-    }
-    static handle cast(ItemBpy src, return_value_policy /* policy */, handle /* parent */)
-    {
-        return to_python(src);
-    }
-};
 
-template <> struct type_caster<boost::shared_ptr<ItemBpyBS>> : pyboost11::type_caster<boost::shared_ptr<ItemBpyBS>>
+namespace detail
 {
-public:
-    PYBIND11_TYPE_CASTER(boost::shared_ptr<ItemBpyBS>, _("ItemBpyBS"));
-    bool load(handle src, bool)
-    {
-        value = from_python(src);
-        return true;
-    }
-    static handle cast(boost::shared_ptr<ItemBpyBS> src, return_value_policy /* policy */, handle /* parent */)
-    {
-        return to_python(src);
-    }
-};
 
-}} // end namespace pybind11::detail
+PYBOOST11_TYPE_CASTER(ItemBpy, _("ItemBpy"));
+PYBOOST11_TYPE_CASTER(boost::shared_ptr<ItemBpyBS>, _("ItemBpyBS"));
+
+} // end namespace detail
+
+} // end namespace pybind11
 
 PYBIND11_MODULE(modpyb, mod)
 {
+
     namespace pyb = pybind11;
 
     mod.doc() = "extension module by pybind11";
@@ -82,6 +62,7 @@ PYBIND11_MODULE(modpyb, mod)
         .def("take_pyb", &ContainerPyb::take_pyb)
         .def("take_bpy", &ContainerPyb::take_bpy)
     ;
+
 }
 
 // vim: set ff=unix fenc=utf8 et sw=4 ts=4 sts=4:

@@ -11,7 +11,8 @@
 namespace pyboost11
 {
 
-template <typename T> struct type_caster
+// Pybind11 cast by using boost.python.
+template <typename T> struct type_caster_helper
 {
 
 public:
@@ -33,6 +34,7 @@ public:
 
 };
 
+// Boost.python convert by using pybind11.
 template <typename T> struct converter
 {
 
@@ -100,5 +102,53 @@ public:
 };
 
 } // end namespace pyboost11
+
+namespace pybind11
+{
+
+namespace detail
+{
+
+template <typename type> struct pyboost11_type_caster : public pyboost11::type_caster_helper<type>
+{
+
+// Expanded from PYBIND11_TYPE_CASTER.
+protected:
+    type value;
+public:
+    template <typename T_, enable_if_t<std::is_same<type, remove_cv_t<T_>>::value, int> = 0>
+    static handle cast(T_ *src, return_value_policy policy, handle parent) {
+        if (!src) return none().release();
+        if (policy == return_value_policy::take_ownership) {
+            auto h = cast(std::move(*src), policy, parent); delete src; return h;
+        } else {
+            return cast(*src, policy, parent);
+        }
+    }
+    operator type*() { return &value; }
+    operator type&() { return value; }
+    operator type&&() && { return std::move(value); }
+    template <typename T_> using cast_op_type = pybind11::detail::movable_cast_op_type<T_>;
+
+    // Boilerplate.
+    bool load(handle src, bool)
+    {
+        value = pyboost11::type_caster_helper<type>::from_python(src);
+        return true;
+    }
+    static handle cast(type src, return_value_policy /* policy */, handle /* parent */)
+    {
+        return pyboost11::type_caster_helper<type>::to_python(src);
+    }
+
+};
+
+#define PYBOOST11_TYPE_CASTER(type, py_name) \
+    template <> struct type_caster<type> : public pyboost11_type_caster<type> \
+    { static constexpr auto name = py_name; }
+
+} // end namespace detail
+
+} // end namespace pybind11
 
 // vim: set ff=unix fenc=utf8 et sw=4 ts=4 sts=4:

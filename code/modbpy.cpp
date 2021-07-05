@@ -9,6 +9,7 @@ boost::shared_ptr<ItemBpyBS> make_bpybs(int v)
 
 BOOST_PYTHON_MODULE(modbpy)
 {
+
     namespace bpy = boost::python;
 
     pyboost11::converter<ItemPyb>();
@@ -86,6 +87,7 @@ BOOST_PYTHON_MODULE(modbpy)
         .def("take_pyb", &ContainerBpy::take_pyb)
         .def("take_bpy", &ContainerBpy::take_bpy)
     ;
+
 }
 
 // vim: set ff=unix fenc=utf8 et sw=4 ts=4 sts=4:

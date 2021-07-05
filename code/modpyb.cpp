@@ -2,8 +2,6 @@
 
 #include "item.hpp"
 
-PYBIND11_DECLARE_HOLDER_TYPE(T, boost::shared_ptr<T>);
-
 namespace pybind11 { namespace detail {
 
 template <> struct type_caster<ItemBpy> : pyboost11::type_caster<ItemBpy>

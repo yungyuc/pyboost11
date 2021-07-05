@@ -2,12 +2,6 @@
 
 #include "item.hpp"
 
-// here comes the magic
-template <typename T> T * get_pointer(std::shared_ptr<T> const & p)
-{
-  return const_cast<T *>(p.get());
-}
-
 boost::shared_ptr<ItemBpyBS> make_bpybs(int v)
 {
     return ItemBpyBS::make(v);

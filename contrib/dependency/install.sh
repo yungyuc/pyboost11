@@ -46,8 +46,8 @@ pybind11() {
   cmakeargs+=("-DPYBIND11_TEST=OFF")
   # For C++17 with clang on Linux, we may need master.
   # https://github.com/pybind/pybind11/commit/759221f5c56939f59d8f342a41f8e2d2cacbc8cf
-  install ${PYBIND_ORG:-pybind} pybind11 ${PYBIND_BRANCH:-v2.5.0} \
-    ${PYBIND_LOCAL:-pybind11-2.5.0} "${cmakeargs[@]}"
+  install ${PYBIND_ORG:-pybind} pybind11 ${PYBIND_BRANCH:-v2.6.1} \
+    ${PYBIND_LOCAL:-pybind11-2.6.1} "${cmakeargs[@]}"
 
 }
 

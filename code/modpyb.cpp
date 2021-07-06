@@ -57,10 +57,10 @@ PYBIND11_MODULE(modpyb, mod)
         .def_property_readonly("bpy", &ContainerPyb::bpy)
         .def_property_readonly("pybss", &ContainerPyb::pybss)
         .def_property_readonly("bpybs", &ContainerPyb::bpybs)
-        .def("set_pybss", &ContainerPyb::set_pybss)
-        .def("set_bpybs", &ContainerPyb::set_bpybs)
         .def("take_pyb", &ContainerPyb::take_pyb)
         .def("take_bpy", &ContainerPyb::take_bpy)
+        .def("set_pybss", &ContainerPyb::set_pybss)
+        .def("set_bpybs", &ContainerPyb::set_bpybs)
     ;
 
 }

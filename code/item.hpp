@@ -15,16 +15,16 @@ struct ItemPyb
     ItemPyb(ItemPyb const & other) : m_value(other.m_value) {}
     ItemPyb & operator=(ItemPyb const & other) { m_value = other.m_value; return *this; }
 
+    int value() const { return m_value; }
+    void set_value(int v) { m_value = v; }
+
+    intptr_t address() const { return reinterpret_cast<intptr_t>(this); }
+
     void take_pyb(ItemPyb const & other);
     void take_bpy(ItemBpy const & other);
 
     ItemPyb make_pyb();
     ItemBpy make_bpy();
-
-    int value() const { return m_value; }
-    void set_value(int v) { m_value = v; }
-
-    intptr_t address() const { return reinterpret_cast<intptr_t>(this); }
 
 private:
 
@@ -39,16 +39,16 @@ struct ItemBpy
     ItemBpy(ItemBpy const & other) : m_value(other.m_value) {}
     ItemBpy & operator=(ItemBpy const & other) { m_value = other.m_value; return *this; }
 
+    int value() const { return m_value; }
+    void set_value(int v) { m_value = v; }
+
+    intptr_t address() const { return reinterpret_cast<intptr_t>(this); }
+
     void take_pyb(ItemPyb const & other);
     void take_bpy(ItemBpy const & other);
 
     ItemPyb make_pyb();
     ItemBpy make_bpy();
-
-    int value() const { return m_value; }
-    void set_value(int v) { m_value = v; }
-
-    intptr_t address() const { return reinterpret_cast<intptr_t>(this); }
 
 private:
 
@@ -89,16 +89,16 @@ public:
     ItemPybSS(ItemPybSS const &) = delete;
     ItemPybSS & operator=(ItemPybSS const &) = delete;
 
+    int value() const { return m_value; }
+    void set_value(int v) { m_value = v; }
+
+    intptr_t address() const { return reinterpret_cast<intptr_t>(this); }
+
     void take_pybss(ItemPybSS const & other);
     void take_bpybs(ItemBpyBS const & other);
 
     std::shared_ptr<ItemPybSS> make_pybss();
     boost::shared_ptr<ItemBpyBS> make_bpybs();
-
-    int value() const { return m_value; }
-    void set_value(int v) { m_value = v; }
-
-    intptr_t address() const { return reinterpret_cast<intptr_t>(this); }
 
 private:
 
@@ -125,16 +125,16 @@ public:
     ItemBpyBS(ItemBpyBS const &) = delete;
     ItemBpyBS & operator=(ItemBpyBS const &) = delete;
 
+    int value() const { return m_value; }
+    void set_value(int v) { m_value = v; }
+
+    intptr_t address() const { return reinterpret_cast<intptr_t>(this); }
+
     void take_pybss(ItemPybSS const & other);
     void take_bpybs(ItemBpyBS const & other);
 
     std::shared_ptr<ItemPybSS> make_pybss();
     boost::shared_ptr<ItemBpyBS> make_bpybs();
-
-    int value() const { return m_value; }
-    void set_value(int v) { m_value = v; }
-
-    intptr_t address() const { return reinterpret_cast<intptr_t>(this); }
 
 private:
 

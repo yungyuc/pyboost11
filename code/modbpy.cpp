@@ -82,10 +82,10 @@ BOOST_PYTHON_MODULE(modbpy)
               , bpy::return_value_policy<bpy::copy_const_reference>()
             )
         )
-        .def("set_pybss", &ContainerBpy::set_pybss)
-        .def("set_bpybs", &ContainerBpy::set_bpybs)
         .def("take_pyb", &ContainerBpy::take_pyb)
         .def("take_bpy", &ContainerBpy::take_bpy)
+        .def("set_pybss", &ContainerBpy::set_pybss)
+        .def("set_bpybs", &ContainerBpy::set_bpybs)
     ;
 
 }

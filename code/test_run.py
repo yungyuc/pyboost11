@@ -80,6 +80,14 @@ class ContainerTest(unittest.TestCase):
         self.assertEqual(pybss2.address, cpyb.pybss.address)
         self.assertEqual(bpybs2.address, cpyb.bpybs.address)
 
+        cpyb.set_pybss_ref(pybss)
+        cpyb.set_bpybs_ref(bpybs)
+
+        self.assertEqual(pybss.address, cpyb.pybss.address)
+        self.assertEqual(bpybs.address, cpyb.bpybs.address)
+        self.assertNotEqual(pybss2.address, cpyb.pybss.address)
+        self.assertNotEqual(bpybs2.address, cpyb.bpybs.address)
+
     def test_container_bpy(self):
 
         pyb = modpyb.ItemPyb(100)
@@ -117,5 +125,13 @@ class ContainerTest(unittest.TestCase):
         self.assertNotEqual(bpybs.address, cbpy.bpybs.address)
         self.assertEqual(pybss2.address, cbpy.pybss.address)
         self.assertEqual(bpybs2.address, cbpy.bpybs.address)
+
+        cbpy.set_pybss_ref(pybss)
+        cbpy.set_bpybs_ref(bpybs)
+
+        self.assertEqual(pybss.address, cbpy.pybss.address)
+        self.assertEqual(bpybs.address, cbpy.bpybs.address)
+        self.assertNotEqual(pybss2.address, cbpy.pybss.address)
+        self.assertNotEqual(bpybs2.address, cbpy.bpybs.address)
 
 # vim: set fenc=utf8 ff=unix et sw=4 ts=4 sts=4:

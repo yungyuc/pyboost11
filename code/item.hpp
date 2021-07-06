@@ -175,6 +175,9 @@ struct ContainerPyb
     void set_pybss(std::shared_ptr<ItemPybSS> const & other) { m_pybss = other; }
     void set_bpybs(boost::shared_ptr<ItemBpyBS> const & other) { m_bpybs = other; }
 
+    void set_pybss_ref(ItemPybSS & other) { m_pybss = other.shared_from_this(); }
+    void set_bpybs_ref(ItemBpyBS & other) { m_bpybs = other.shared_from_this(); }
+
 private:
 
     ItemPyb m_pyb;
@@ -204,6 +207,9 @@ struct ContainerBpy
 
     void set_pybss(std::shared_ptr<ItemPybSS> const & other) { m_pybss = other; }
     void set_bpybs(boost::shared_ptr<ItemBpyBS> const & other) { m_bpybs = other; }
+
+    void set_pybss_ref(ItemPybSS & other) { m_pybss = other.shared_from_this(); }
+    void set_bpybs_ref(ItemBpyBS & other) { m_bpybs = other.shared_from_this(); }
 
 private:
 

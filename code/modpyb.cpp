@@ -61,6 +61,14 @@ PYBIND11_MODULE(modpyb, mod)
         .def("take_bpy", &ContainerPyb::take_bpy)
         .def("set_pybss", &ContainerPyb::set_pybss)
         .def("set_bpybs", &ContainerPyb::set_bpybs)
+        .def("set_pybss_ref", &ContainerPyb::set_pybss_ref)
+        .def
+        (
+            "set_bpybs_ref"
+            // FIXME: How to automatically recognize ItemBpyBS &?
+          , [](ContainerPyb & self, boost::shared_ptr<ItemBpyBS> const & other)
+            { self.set_bpybs_ref(*other); }
+        )
     ;
 
 }

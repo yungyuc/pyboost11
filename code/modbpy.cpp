@@ -7,6 +7,11 @@ boost::shared_ptr<ItemBpyBS> make_bpybs(int v)
     return ItemBpyBS::make(v);
 }
 
+void set_pybss_ref(ContainerBpy & self, std::shared_ptr<ItemPybSS> const & other)
+{
+    self.set_pybss_ref(*other);
+}
+
 BOOST_PYTHON_MODULE(modbpy)
 {
 
@@ -86,6 +91,9 @@ BOOST_PYTHON_MODULE(modbpy)
         .def("take_bpy", &ContainerBpy::take_bpy)
         .def("set_pybss", &ContainerBpy::set_pybss)
         .def("set_bpybs", &ContainerBpy::set_bpybs)
+        // FIXME: How to automatically recognize ItemPybSS &?
+        .def("set_pybss_ref", &set_pybss_ref)
+        .def("set_bpybs_ref", &ContainerBpy::set_bpybs_ref)
     ;
 
 }

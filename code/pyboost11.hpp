@@ -12,10 +12,10 @@ namespace pyboost11
 {
 
 // Pybind11 cast by using boost.python.
-template <typename T> struct type_caster_helper
+template <typename T> struct caster
 {
 
-    type_caster_helper(pybind11::handle src)
+    caster(pybind11::handle src)
       : obj(boost::python::handle<>(boost::python::borrowed(src.ptr())))
       , ext(obj)
     {}
@@ -74,7 +74,7 @@ public:
         {
             return false;
         }
-        pyboost11::type_caster_helper<type> ext(src);
+        pyboost11::caster<type> ext(src);
         if (!ext.check())
         {
             return false;
@@ -84,7 +84,7 @@ public:
     }
     static handle cast(type src, return_value_policy /* policy */, handle /* parent */)
     {
-        return pyboost11::type_caster_helper<type>::to_python(src);
+        return pyboost11::caster<type>::to_python(src);
     }
 
 };

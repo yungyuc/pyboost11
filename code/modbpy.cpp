@@ -94,6 +94,60 @@ BOOST_PYTHON_MODULE(modbpy)
         // FIXME: How to automatically recognize ItemPybSS &?
         .def("set_pybss_ref", &set_pybss_ref)
         .def("set_bpybs_ref", &ContainerBpy::set_bpybs_ref)
+        // Overload with argument name.
+        .def
+        (
+            "overload_pyb"
+          , static_cast<std::string (ContainerBpy::*)(ItemPyb const &) const>
+            (&ContainerBpy::overload_pyb)
+        )
+        .def
+        (
+            "overload_pyb"
+          , static_cast<std::string (ContainerBpy::*)(std::shared_ptr<ItemPybSS> const &) const>
+            (&ContainerBpy::overload_pyb)
+        )
+        .def
+        (
+            "overload_bpy"
+          , static_cast<std::string (ContainerBpy::*)(ItemBpy const &) const>
+            (&ContainerBpy::overload_bpy)
+        )
+        .def
+        (
+            "overload_bpy"
+          , static_cast<std::string (ContainerBpy::*)(boost::shared_ptr<ItemBpyBS> const &) const>
+            (&ContainerBpy::overload_bpy)
+        )
+        // Overload with argument name.
+        .def
+        (
+            "overload2_pyb"
+          , static_cast<std::string (ContainerBpy::*)(ItemPyb const &) const>
+            (&ContainerBpy::overload_pyb)
+          , bpy::arg("pyb")
+        )
+        .def
+        (
+            "overload2_pyb"
+          , static_cast<std::string (ContainerBpy::*)(std::shared_ptr<ItemPybSS> const &) const>
+            (&ContainerBpy::overload_pyb)
+          , bpy::arg("pybss")
+        )
+        .def
+        (
+            "overload2_bpy"
+          , static_cast<std::string (ContainerBpy::*)(ItemBpy const &) const>
+            (&ContainerBpy::overload_bpy)
+          , bpy::arg("bpy")
+        )
+        .def
+        (
+            "overload2_bpy"
+          , static_cast<std::string (ContainerBpy::*)(boost::shared_ptr<ItemBpyBS> const &) const>
+            (&ContainerBpy::overload_bpy)
+          , bpy::arg("bpybs")
+        )
     ;
 
 }

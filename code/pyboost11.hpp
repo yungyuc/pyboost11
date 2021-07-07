@@ -15,15 +15,16 @@ namespace pyboost11
 template <typename T> struct type_caster_helper
 {
 
-public:
+    type_caster_helper(pybind11::handle src)
+      : obj(boost::python::handle<>(boost::python::borrowed(src.ptr())))
+      , ext(obj)
+    {}
+
+    bool check() const { return ext.check(); }
 
     // From-Python conversion.
-    static T from_python(pybind11::handle src)
-    {
-        namespace bpy = boost::python;
-        bpy::object bpyo(bpy::handle<>(bpy::borrowed(src.ptr())));
-        return bpy::extract<T>(bpyo);
-    }
+    operator T() { return ext(); }
+    T operator()() { return ext(); }
 
     // To-Python conversion.
     static pybind11::handle to_python(T & src)
@@ -31,6 +32,9 @@ public:
         namespace bpy = boost::python;
         return bpy::incref(bpy::object(src).ptr());
     }
+
+    boost::python::object obj;
+    boost::python::extract<T> ext;
 
 };
 
@@ -42,7 +46,7 @@ namespace pybind11
 namespace detail
 {
 
-template <typename type> struct pyboost11_type_caster : public pyboost11::type_caster_helper<type>
+template <typename type> struct pyboost11_type_caster
 {
 
 // Expanded from PYBIND11_TYPE_CASTER.
@@ -66,7 +70,16 @@ public:
     // Boilerplate.
     bool load(handle src, bool)
     {
-        value = pyboost11::type_caster_helper<type>::from_python(src);
+        if (!src)
+        {
+            return false;
+        }
+        pyboost11::type_caster_helper<type> ext(src);
+        if (!ext.check())
+        {
+            return false;
+        }
+        value = ext();
         return true;
     }
     static handle cast(type src, return_value_policy /* policy */, handle /* parent */)

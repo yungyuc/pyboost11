@@ -178,6 +178,12 @@ struct ContainerPyb
     void set_pybss_ref(ItemPybSS & other) { m_pybss = other.shared_from_this(); }
     void set_bpybs_ref(ItemBpyBS & other) { m_bpybs = other.shared_from_this(); }
 
+    std::string overload_pyb(ItemPyb const &) const { return "overload_pyb_noss"; }
+    std::string overload_pyb(std::shared_ptr<ItemPybSS> const &) const { return "overload_pyb_ss"; }
+
+    std::string overload_bpy(ItemBpy const &) const { return "overload_bpy_nobs"; }
+    std::string overload_bpy(boost::shared_ptr<ItemBpyBS> const &) const { return "overload_bpy_bs"; }
+
 private:
 
     ItemPyb m_pyb;
@@ -210,6 +216,12 @@ struct ContainerBpy
 
     void set_pybss_ref(ItemPybSS & other) { m_pybss = other.shared_from_this(); }
     void set_bpybs_ref(ItemBpyBS & other) { m_bpybs = other.shared_from_this(); }
+
+    std::string overload_pyb(ItemPyb const &) const { return "overload_pyb_noss"; }
+    std::string overload_pyb(std::shared_ptr<ItemPybSS> const &) const { return "overload_pyb_ss"; }
+
+    std::string overload_bpy(ItemBpy const &) const { return "overload_bpy_nobs"; }
+    std::string overload_bpy(boost::shared_ptr<ItemBpyBS> const &) const { return "overload_bpy_bs"; }
 
 private:
 

@@ -88,6 +88,28 @@ class ContainerTest(unittest.TestCase):
         self.assertNotEqual(pybss2.address, cpyb.pybss.address)
         self.assertNotEqual(bpybs2.address, cpyb.bpybs.address)
 
+        self.assertEqual("overload_pyb_noss", cpyb.overload_pyb(pyb))
+        self.assertEqual("overload_pyb_ss", cpyb.overload_pyb(pybss))
+        self.assertEqual("overload_bpy_nobs", cpyb.overload_bpy(bpy))
+        self.assertEqual("overload_bpy_bs", cpyb.overload_bpy(bpybs))
+        with self.assertRaises(TypeError):
+            cpyb.overload_pyb(pyb=pyb)
+        with self.assertRaises(TypeError):
+            cpyb.overload_pyb(pybss=pybss)
+        with self.assertRaises(TypeError):
+            cpyb.overload_bpy(bpy=bpy)
+        with self.assertRaises(TypeError):
+            cpyb.overload_bpy(bpybs=bpybs)
+
+        self.assertEqual("overload_pyb_noss", cpyb.overload2_pyb(pyb))
+        self.assertEqual("overload_pyb_ss", cpyb.overload2_pyb(pybss))
+        self.assertEqual("overload_bpy_nobs", cpyb.overload2_bpy(bpy))
+        self.assertEqual("overload_bpy_bs", cpyb.overload2_bpy(bpybs))
+        self.assertEqual("overload_pyb_noss", cpyb.overload2_pyb(pyb=pyb))
+        self.assertEqual("overload_pyb_ss", cpyb.overload2_pyb(pybss=pybss))
+        self.assertEqual("overload_bpy_nobs", cpyb.overload2_bpy(bpy=bpy))
+        self.assertEqual("overload_bpy_bs", cpyb.overload2_bpy(bpybs=bpybs))
+
     def test_container_bpy(self):
 
         pyb = modpyb.ItemPyb(100)
@@ -133,5 +155,27 @@ class ContainerTest(unittest.TestCase):
         self.assertEqual(bpybs.address, cbpy.bpybs.address)
         self.assertNotEqual(pybss2.address, cbpy.pybss.address)
         self.assertNotEqual(bpybs2.address, cbpy.bpybs.address)
+
+        self.assertEqual("overload_pyb_noss", cbpy.overload_pyb(pyb))
+        self.assertEqual("overload_pyb_ss", cbpy.overload_pyb(pybss))
+        self.assertEqual("overload_bpy_nobs", cbpy.overload_bpy(bpy))
+        self.assertEqual("overload_bpy_bs", cbpy.overload_bpy(bpybs))
+        with self.assertRaisesRegex(Exception, "Python argument types in"):
+            cbpy.overload_pyb(pyb=pyb)
+        with self.assertRaisesRegex(Exception, "Python argument types in"):
+            cbpy.overload_pyb(pybss=pybss)
+        with self.assertRaisesRegex(Exception, "Python argument types in"):
+            cbpy.overload_bpy(bpy=bpy)
+        with self.assertRaisesRegex(Exception, "Python argument types in"):
+            cbpy.overload_bpy(bpybs=bpybs)
+
+        self.assertEqual("overload_pyb_noss", cbpy.overload2_pyb(pyb))
+        self.assertEqual("overload_pyb_ss", cbpy.overload2_pyb(pybss))
+        self.assertEqual("overload_bpy_nobs", cbpy.overload2_bpy(bpy))
+        self.assertEqual("overload_bpy_bs", cbpy.overload2_bpy(bpybs))
+        self.assertEqual("overload_pyb_noss", cbpy.overload2_pyb(pyb=pyb))
+        self.assertEqual("overload_pyb_ss", cbpy.overload2_pyb(pybss=pybss))
+        self.assertEqual("overload_bpy_nobs", cbpy.overload2_bpy(bpy=bpy))
+        self.assertEqual("overload_bpy_bs", cbpy.overload2_bpy(bpybs=bpybs))
 
 # vim: set fenc=utf8 ff=unix et sw=4 ts=4 sts=4:

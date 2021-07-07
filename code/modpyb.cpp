@@ -69,6 +69,60 @@ PYBIND11_MODULE(modpyb, mod)
           , [](ContainerPyb & self, boost::shared_ptr<ItemBpyBS> const & other)
             { self.set_bpybs_ref(*other); }
         )
+        // Overload without argument name.
+        .def
+        (
+            "overload_pyb"
+          , static_cast<std::string (ContainerPyb::*)(ItemPyb const &) const>
+            (&ContainerPyb::overload_pyb)
+        )
+        .def
+        (
+            "overload_pyb"
+          , static_cast<std::string (ContainerPyb::*)(std::shared_ptr<ItemPybSS> const &) const>
+            (&ContainerPyb::overload_pyb)
+        )
+        .def
+        (
+            "overload_bpy"
+          , static_cast<std::string (ContainerPyb::*)(ItemBpy const &) const>
+            (&ContainerPyb::overload_bpy)
+        )
+        .def
+        (
+            "overload_bpy"
+          , static_cast<std::string (ContainerPyb::*)(boost::shared_ptr<ItemBpyBS> const &) const>
+            (&ContainerPyb::overload_bpy)
+        )
+        // Overload with argument name.
+        .def
+        (
+            "overload2_pyb"
+          , static_cast<std::string (ContainerPyb::*)(ItemPyb const &) const>
+            (&ContainerPyb::overload_pyb)
+          , pyb::arg("pyb")
+        )
+        .def
+        (
+            "overload2_pyb"
+          , static_cast<std::string (ContainerPyb::*)(std::shared_ptr<ItemPybSS> const &) const>
+            (&ContainerPyb::overload_pyb)
+          , pyb::arg("pybss")
+        )
+        .def
+        (
+            "overload2_bpy"
+          , static_cast<std::string (ContainerPyb::*)(ItemBpy const &) const>
+            (&ContainerPyb::overload_bpy)
+          , pyb::arg("bpy")
+        )
+        .def
+        (
+            "overload2_bpy"
+          , static_cast<std::string (ContainerPyb::*)(boost::shared_ptr<ItemBpyBS> const &) const>
+            (&ContainerPyb::overload_bpy)
+          , pyb::arg("bpybs")
+        )
     ;
 
 }

@@ -82,6 +82,10 @@ public:
         value = ext();
         return true;
     }
+    static handle cast(type * src, return_value_policy /* policy */, handle /* parent */)
+    {
+        return pyboost11::caster<type>::to_python(src);
+    }
     static handle cast(type src, return_value_policy /* policy */, handle /* parent */)
     {
         return pyboost11::caster<type>::to_python(src);
